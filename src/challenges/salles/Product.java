@@ -9,6 +9,8 @@ public class Product {
         this.setValue(value);
     }
 
+    public Product(){}
+
     public String getName() {
         return name;
     }

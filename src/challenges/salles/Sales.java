@@ -1,14 +1,11 @@
 package challenges.salles;
 
-import examples.classes.inheritance.Square;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Sales {
     public static void main(String[] args){
-        Sales sales = new Sales();
         var pencil = new Product("Pencil", 10.0F);
         var phone = new Product("Phone", 300.0F);
         var mouse = new Product("Mouse", 50.0F);
@@ -29,17 +26,47 @@ public class Sales {
                 """);
         int option = scanner.nextInt();
         while(option != 2){
-            sales.printProducts(productList);
-            System.out.println("Which product do you wish to buy?");
 
+            for(Product product: productList){ // foreach
+                System.out.println(product);
+            }
+
+            System.out.println("Which product do you wish to buy?");
+            String prd = scanner.next();
+
+            System.out.println("How many units do you wish?");
+            int qt = scanner.nextInt();
+
+            var product = new Product();
+            for(Product p: productList){ // foreach
+                if(p.getName().contains(prd)){
+                    product = p;
+                }
+            }
+
+
+            var salePrice = qt* product.getValue();
+            if(money - salePrice < 0){
+                System.out.println("You don't have enough money :(");
+                System.out.println("Current money: " + money + " Sale price: "+ salePrice);
+
+            }else{
+                var sale = new SaleHistory(product,qt);
+                saleHistories.add(sale);
+                money = money - salePrice;
+            }
+            System.out.println("""
+                1 - Buy product
+                2 - Close
+                """);
+            option = scanner.nextInt();
         }
         scanner.close();
 
-    }
-
-    public static void printProducts(ArrayList<Product> products){
-        for(Product product: products){ // foreach
-            System.out.println(product);
+        System.out.println("Total money: " + money);
+        for(SaleHistory s: saleHistories){
+            System.out.println(s);
         }
     }
+
 }

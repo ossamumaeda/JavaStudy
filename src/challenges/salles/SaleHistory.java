@@ -23,4 +23,10 @@ public class SaleHistory{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+
+    @Override
+    public String toString(){
+        return this.getProduct() + " - " + "Quantity: " + this.getQuantity() + " -> Total price: " + this.quantity * product.getValue();
+    }
 }
